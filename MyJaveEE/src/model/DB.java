@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.DriverManager;
+
 public class DB {
 	private static DB instance;
 	
@@ -12,5 +14,9 @@ public class DB {
 	
 	public DB () {
 		System.out.println("DB");
+	}
+	
+	public void doConnect() {
+		
 	}
 }
