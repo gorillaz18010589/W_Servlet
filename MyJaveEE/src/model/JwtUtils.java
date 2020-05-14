@@ -15,6 +15,9 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import io.jsonwebtoken.Claims;
 
 public class JwtUtils {
+	private static String SSU ="wexlu";
+	private static String SUB ="userId";
+	private static String AUD ="user";
 
 	/*1.解析JWT的字串Token,顯示Claim所有的key:value訊息在LOG上
 	 * @param String jwt =>要被解析的JWT token
@@ -32,20 +35,20 @@ public class JwtUtils {
 	}
 	
 	/*2.創造一個使用者Token
-	 * @param
-	 * @param
+	 * @param String userAccout => 使用者傳來的帳號,當作playload的key
+	 * @param String uerName=> 使用者傳來的名字,當作playload的value
 	 * */
-	public static String createToken(String userName ,String userAccout) throws Exception  {
+	public static String createToken(String userAccount ,String userName) throws Exception  {
 		
 		Algorithm alg = Algorithm.HMAC256("key");
 		Date date = new Date();
 		
 		String token = 	JWT.create()
-			.withIssuer("hank")
+			.withIssuer(SSU)
 			.withIssuedAt(date)
-			.withSubject("userId")
-			.withAudience("user")
-			.withClaim(userAccout, userName)
+			.withSubject(SUB)
+			.withAudience(AUD)
+			.withClaim(userAccount, userName)
 			.sign(alg);
 		
 		return token;

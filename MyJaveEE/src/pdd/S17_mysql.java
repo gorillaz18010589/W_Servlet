@@ -1,6 +1,4 @@
 package pdd;
-//�ت�:���oAS�e�Ӫ�Json�Ѽ�,�åB�g�JDB
-//�o�䦳�f�t����:login.html
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -21,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
+
 
 
 @WebServlet("/S17_mysql")
