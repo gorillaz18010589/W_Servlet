@@ -32,7 +32,7 @@ public class WordUtils {
 			String a2 = splitWord[2];
 			String a3 = splitWord[3];
 			
-			sb.append(a0+"." +a1 +"=>" + a2 + "(回傳值:" + s3 +")");
+			sb.append(a0+"." +a1 +"=>" + a2 + "(回傳值:" + a3 +")");
 			System.out.println(sb);
 			System.out.println("=====================");
 		}
