@@ -38,15 +38,18 @@ public class T3_text_DB_void extends HttpServlet {
 			
 			request.setCharacterEncoding("UTF-8");
 			
+			//取得AS的Json key:vlaue
 			BufferedReader bufferedReader = request.getReader();
 			String json = bufferedReader.readLine();
 			bufferedReader.close();
 			System.out.println(json);  //{"password":"ff","name":"hank","active":"2","account":"gg","hash":"w"}
 			
+			//將資料轉成bean
 //			UserBean user = gson.fromJson(json, UserBean.class);
 			UserBean user = GsonUtils.jsonStringToBean(json, UserBean.class);
 			System.out.println(user.toString());
 			
+			//新增到table李
 			DB db = new DB();
 			db.addUser(user);
 			
