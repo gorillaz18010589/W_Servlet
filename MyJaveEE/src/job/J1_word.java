@@ -21,7 +21,7 @@ public class J1_word extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//³]©wClient¶Ç¦^¨Óªºrequest¥i¥H¥Î¤¤¤å½s½X
+		//è¨­å®šClientå‚³å›ä¾†çš„requestå¯ä»¥ç”¨ä¸­æ–‡ç·¨ç¢¼
 		request.setCharacterEncoding("UTF-8");
 		
 		response.setContentType("text/html; charset=UTF-8");
@@ -36,7 +36,7 @@ public class J1_word extends HttpServlet {
 		String word6 = request.getParameter("word6");
 		String word7 = request.getParameter("word7");
 
-		//1.¥u¯à§ì¤@­ÓInputªº¤èªk
+		//1.åªèƒ½æŠ“ä¸€å€‹Inputçš„æ–¹æ³•
 //		String newWord = WordUtils.excelWordToJavaWord(word0);
 //		printWriter.write(newWord);
 		

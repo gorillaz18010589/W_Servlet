@@ -1,5 +1,5 @@
 package job;
-
+//目的:ExcleDBAPI
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -37,35 +37,35 @@ public class JobDB {
 		try {
 			Class.forName(JDBC);
 			con = DriverManager.getConnection(URL, USER, PASS_WORD);
-			System.out.println("doConnect():成功");
+			System.out.println("doConnect():����");
 		}catch (Exception e) {
-			System.out.println("doConnect()失敗:" + e.toString());
+			System.out.println("doConnect()憭望��:" + e.toString());
 		}	
 	}
 	
 	public void doClose() {
 		try {
 			con.close();
-			System.out.println("doClose():成功");
+			System.out.println("doClose():����");
 		} catch (Exception e) {
-			System.out.println("doClose()失敗:" + e.toString());
+			System.out.println("doClose()憭望��:" + e.toString());
 		}
 	}
 	
 	
-	/*1.新增excelWord檔案加入到DB
-	 * @pamram:String fileName => 1.要加入到DB的csv檔案位置
-	 * @param:Object object => 2.這個servlet的objext,主要是要玩getClass方法
+	/*1.�憓xcelWord瑼���DB
+	 * @pamram:String fileName => 1.閬��DB��sv瑼��蔭
+	 * @param:Object object => 2.��ervlet��bjext,銝餉�閬getClass�瘜�
 	 * */
 	public  void addExcleWord(String fileName, Object object) throws ServletException, IOException {
 			addExcleWord(DEFAULT_TABLE_NAME, fileName, object);
 			
 	}
 	
-	/*2.新增excleWord檔案加入到DB,可以指定庫名
-	 * @param:String tableName	=> 1.要被加入到DB的表
-	 * @param:String fileName => 2.要加入到DB的csv檔案位置
-	 * @param:Object object => 3.這個servlet的objext,主要是要玩getClass方法 */
+	/*2.�憓xcleWord瑼���DB,�隞交��澈���
+	 * @param:String tableName	=> 1.閬◤���DB��”
+	 * @param:String fileName => 2.閬��DB��sv瑼��蔭
+	 * @param:Object object => 3.��ervlet��bjext,銝餉�閬getClass�瘜� */
 	public  void addExcleWord(String tableName, String fileName, Object object) throws ServletException, IOException {
 		try {
 			 String[] splitLine;
@@ -78,11 +78,11 @@ public class JobDB {
 		    		  getClassLoader().
 		    		 	getResource(fileName);
 		     
-		     String path = url.getPath(); //取得這個頁面
+		     String path = url.getPath(); //������
 		     System.out.println(path);
-		     InputStream in = new FileInputStream(path); //取得輸入檔案的串流(要輸入的檔案頁面)
+		     InputStream in = new FileInputStream(path); //���撓�瑼��葡瘚�(閬撓������)
 		     
-		     //讀取檔案串流
+		     //霈�����葡瘚�
 		     BufferedReader boBufferedReader = new BufferedReader(new InputStreamReader(in));
 		     String line = null;
 		     
@@ -110,7 +110,7 @@ public class JobDB {
 							    String row6 = splitLine[6];
 							    String row7 = splitLine[7];
 							    
-							    //如果第二個字串包刮.
+							    //憒�洵鈭��葡��.
 							    if(methond.contains(".")) {
 							    	row2 = row2.replace(".",",");
 					    	 		System.out.println("new row2:" + row2);
@@ -134,7 +134,7 @@ public class JobDB {
 							    int count = pstmt.executeUpdate();
 							    
 							    if(count != 0) {
-							    	System.out.println("新曾成功:" + count +"筆");
+							    	System.out.println("������:" + count +"蝑�");
 							    }
 							   
 							    
@@ -147,7 +147,7 @@ public class JobDB {
 		   
 		   
 		}catch (Exception e) {
-			System.out.println( "錯誤"+e.toString());
+			System.out.println( "�隤�"+e.toString());
 			
 		}
 	}
@@ -189,7 +189,7 @@ public class JobDB {
 			doClose();
 
 		}catch (Exception e) {
-			System.out.println("getExcleWord()失敗:" +e.toString());
+			System.out.println("getExcleWord()憭望��:" +e.toString());
 		}		
 		return googleSiginAccoutList;
 	}
