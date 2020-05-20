@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import beans.GoogleSiginAccoutBean;
 import beans.UserBean;
 
 public class DB {
@@ -21,18 +22,18 @@ public class DB {
 		try {
 			Class.forName(JDBC);
 			con = DriverManager.getConnection(URL, USER, PASS_WORD);
-			System.out.println("doConnect():¶®•\");
+			System.out.println("doConnect():ÊàêÂäü");
 		}catch (Exception e) {
-			System.out.println("doConnect()•¢±—:" + e.toString());
+			System.out.println("doConnect()Â§±Êïó:" + e.toString());
 		}	
 	}
 	
 	public void doClose() {
 		try {
 			con.close();
-			System.out.println("doClose():¶®•\");
+			System.out.println("doClose():ÊàêÂäü");
 		} catch (Exception e) {
-			System.out.println("doClose()•¢±—:" + e.toString());
+			System.out.println("doClose()Â§±Êïó:" + e.toString());
 		}
 	}
 	
@@ -61,10 +62,49 @@ public class DB {
 			
 
 		}catch (Exception e) {
-			System.out.println("addUser()ø˘ª~:" + e.toString());
+			System.out.println("addUser()Â§±Êïó:" + e.toString());
 
 		}
 	}
+	
+	public void addGoogleSiginAccount(GoogleSiginAccoutBean googleSiginAccoutBean) {
+		doConnect();
+		String sql ="INSERT INTO google_signin_account(wid,returna,noun,description,par,type,clazz,extend) VALUES (?,?,?,?,?,?,?,?)";
+		
+		String wid = googleSiginAccoutBean.getwId();
+		String returna = googleSiginAccoutBean.getReturna();
+		String noun = googleSiginAccoutBean.getNoun();
+		String description = googleSiginAccoutBean.getDescription();
+		String par = googleSiginAccoutBean.getPar();
+		String type = googleSiginAccoutBean.getType();
+		String clazz = googleSiginAccoutBean.getClazz();
+		String extend = googleSiginAccoutBean.getExtend();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, wid);
+			pstmt.setString(2, returna);
+			pstmt.setString(3, noun);
+			pstmt.setString(4, description);
+			pstmt.setString(5, par);
+			pstmt.setString(6,type);
+			pstmt.setString(7,clazz);
+			pstmt.setString(8, extend);
+			
+			int i = pstmt.executeUpdate();
+			if(i != 0) {
+				System.out.println("addGoogleSiginAccount()ÊàêÂäüÊñ∞Â¢û:" + i +"Ë≥áÊñô");
+				doClose();
+			}
+
+		}catch (Exception e) {
+			System.out.println("addGoogleSiginAccount()Â§±Êïó:" + e.toString());
+		}
+
+	}
+	
+	
+	
 	
 	
 	

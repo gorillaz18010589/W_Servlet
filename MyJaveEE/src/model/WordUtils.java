@@ -18,6 +18,8 @@ public class WordUtils {
 	public static String excelWordToJavaWord(String word) {
 		StringBuilder sb = new StringBuilder();
 		if(!word.isEmpty() && word != null) {
+			String secondWord = String.valueOf(word.charAt(1));
+			
 			String newWord = word.replaceAll("\\s", "-");
 			System.out.println(newWord);
 		
@@ -40,9 +42,17 @@ public class WordUtils {
 			String a2 = splitWord[2];
 			String a3 = splitWord[3];
 			
-			sb.append(a0+"." +a1 +"=>" + a2 + "(回傳值:" + a3 +")");
-			System.out.println(sb);
-			System.out.println("=====================");
+			if(secondWord.contains("1,2,3,4,5,6,7,8,9,0")) {
+				sb.append(a0 +secondWord +"." +a1 +"=>" + a2 + "(回傳值:" + a3 +")");
+				System.out.println(sb);
+				System.out.println("=====================");
+				
+			}else {
+				sb.append(a0+"." +a1 +"=>" + a2 + "(回傳值:" + a3 +")");
+				System.out.println(sb);
+				System.out.println("=====================");
+			}
+		
 		}
 		
 		
@@ -104,26 +114,33 @@ public class WordUtils {
 			System.out.println(keyWord);
 			
 			
+			
 			char fistWord = keyWord.charAt(0);
-			System.out.println(keyWord);
-			String a = keyWord.substring(1,2);
-			String c = keyWord.replace(a, "*");
-			System.out.println(c);
+			char secondWord = keyWord.charAt(1);
+			String secondWordString = String.valueOf(secondWord);
+		
+				System.out.println(keyWord);
+				String a = keyWord.substring(1,2);
+				String c = keyWord.replace(a, "*");
+				System.out.println(c);
+				
+
+				String[] endWord = c.split("\\*");
+				for(String aa: endWord) {
+					System.out.println(aa);
+				}
+				
+				String s0 = endWord[0]; //9
+				String s2 = endWord[2]; //inflate(LayoutInflater inflater, int layoutId, ViewGroup parent, boolean attachToParent)
+				String s3 = endWord[3];	//fragment綁定Layout(1.綁定的Layout,2.要綁定的LayoutId 3.父類別的ViewGroup 4.是否直接將layout的元件加入到父類別畫面)(回傳值:static <T extends ViewDataBinding> T)
+				StringBuilder sb2 = new StringBuilder();
+				System.out.println(s3);
+				sb2.append(fistWord +"." + s2 +"<br>" +s3);
+				answerWord = sb2.toString();
+				System.out.println(answerWord);
 			
+
 			
-			String[] endWord = c.split("\\*");
-			for(String aa: endWord) {
-				System.out.println(aa);
-			}
-			
-			String s0 = endWord[0]; //9
-			String s2 = endWord[2]; //inflate(LayoutInflater inflater, int layoutId, ViewGroup parent, boolean attachToParent)
-			String s3 = endWord[3];	//fragment綁定Layout(1.綁定的Layout,2.要綁定的LayoutId 3.父類別的ViewGroup 4.是否直接將layout的元件加入到父類別畫面)(回傳值:static <T extends ViewDataBinding> T)
-			StringBuilder sb2 = new StringBuilder();
-			System.out.println(s3);
-			sb2.append(fistWord +"." + s2 +"<br>" +s3);
-			answerWord = sb2.toString();
-			System.out.println(answerWord);
 		}
 		
 		return answerWord;

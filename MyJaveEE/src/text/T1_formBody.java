@@ -56,32 +56,32 @@ public class T1_formBody extends HttpServlet {
 		System.out.println("doTask()");
 		
 		
-		//³]©w­nµ¹clentºÝªº¿é¥X®æ¦¡
+		//ï¿½]ï¿½wï¿½nï¿½ï¿½clentï¿½Ýªï¿½ï¿½ï¿½Xï¿½æ¦¡
 		response.setContentType("application/json, charset=UTF-8");
 		PrintWriter printWriter = response.getWriter();
 		
-		//4.³]¸m¤@­Ó¨pÆ_¤]¥i¥H¥ÎKeyProvider²£¥Í
+		//4.ï¿½]ï¿½mï¿½@ï¿½Ó¨pï¿½_ï¿½]ï¿½iï¿½Hï¿½ï¿½KeyProviderï¿½ï¿½ï¿½ï¿½
 		String key ="key";
 		
-		//3.Ã±³¹©Ò»Ýªººtºâªk
+		//3.Ã±ï¿½ï¿½ï¿½Ò»Ýªï¿½ï¿½tï¿½ï¿½k
 		 Algorithm alg = Algorithm.HMAC256(key);
 		
-		//2.­n³]©w¨ì´Á®É¶¡
+		//2.ï¿½nï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½É¶ï¿½
 		Date currentTime = new Date();
 		
-		//1.«Ø¥ßJwt
+		//1.ï¿½Ø¥ï¿½Jwt
 		String jwt = JWT.create()
-			.withIssuer("hank")//²K¥[µo¦æªÌ(­n²K¥[ªºµo¦æªÌ¦WºÙ)
-			.withSubject("userId")//²K¥[¯S©wªº¥DÃD(­n²K¥[ªº¥DÃD¦WºÙ)
-			.withAudience("User")//²K¥[¯S©wªºÆ[²³¸sÅé(­n²K¥[ªºÆ[²³ÄÝ©Ê)
-			.withExpiresAt(new Date(currentTime.getTime() + 24*3600*1000L))//³]©w¨ì´Á®É¶¡¤@¤Ñ¦³®Ä´Á(­n¨ì´Áªº®É¶¡)
-			.withJWTId("001")//²K¥[¯S©wªºid(­n²K¥[ªºid)
-			.withClaim("pulic msg", "hello")//²K¥[¦Û­q¸qªº¤½¦@°T®§(key:value)
-			.sign(alg);//¥Î§Aµ¹¤©ªººtºâªk³Ð«Ø¤@­ÓÃ±³¹(­nºtºâªº¤è¦¡)(¦^¶ÇString)
+			.withIssuer("hank")//ï¿½Kï¿½[ï¿½oï¿½ï¿½ï¿½(ï¿½nï¿½Kï¿½[ï¿½ï¿½ï¿½oï¿½ï¿½Ì¦Wï¿½ï¿½)
+			.withSubject("userId")//ï¿½Kï¿½[ï¿½Sï¿½wï¿½ï¿½ï¿½Dï¿½D(ï¿½nï¿½Kï¿½[ï¿½ï¿½ï¿½Dï¿½Dï¿½Wï¿½ï¿½)
+			.withAudience("User")//ï¿½Kï¿½[ï¿½Sï¿½wï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½sï¿½ï¿½(ï¿½nï¿½Kï¿½[ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ý©ï¿½)
+			.withExpiresAt(new Date(currentTime.getTime() + 24*3600*1000L))//ï¿½]ï¿½wï¿½ï¿½ï¿½ï¿½É¶ï¿½ï¿½@ï¿½Ñ¦ï¿½ï¿½Ä´ï¿½(ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¶ï¿½)
+			.withJWTId("001")//ï¿½Kï¿½[ï¿½Sï¿½wï¿½ï¿½id(ï¿½nï¿½Kï¿½[ï¿½ï¿½id)
+			.withClaim("pulic msg", "hello")//ï¿½Kï¿½[ï¿½Û­qï¿½qï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½Tï¿½ï¿½(key:value)
+			.sign(alg);//ï¿½Î§Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½kï¿½Ð«Ø¤@ï¿½ï¿½Ã±ï¿½ï¿½(ï¿½nï¿½tï¿½âªºï¿½è¦¡)(ï¿½^ï¿½ï¿½String)
 		
 		System.out.println(jwt);
 		
-		//¸ê®Æ®w³s±µ
+		//ï¿½ï¿½Æ®wï¿½sï¿½ï¿½
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Properties properties = new Properties();
@@ -90,15 +90,15 @@ public class T1_formBody extends HttpServlet {
 			properties.put("serverTimezone","Asia/Taipei");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/iii", properties);
 			
-			//±µ¦¬ºô­¶°Ñ¼Æformªº¿ìªk,¥ÎgetParameter,¨ú±oAS¶Ç¨Ó°Ñ¼Æ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¼ï¿½formï¿½ï¿½ï¿½ï¿½k,ï¿½ï¿½getParameter,ï¿½ï¿½ï¿½oASï¿½Ç¨Ó°Ñ¼ï¿½
 			String name = request.getParameter("name");
 			String account = request.getParameter("account");
 			String password = request.getParameter("password");
 			String localeName = request.getLocalName();
-			System.out.println("¨Ï¥ÎªÌ¦³¿é¤J:" +"name:" + name + "/account:" + account +"/password:" + password +"localeName:" + localeName);
+			System.out.println("ï¿½Ï¥ÎªÌ¦ï¿½ï¿½ï¿½J:" +"name:" + name + "/account:" + account +"/password:" + password +"localeName:" + localeName);
 			
 			
-			//±N¨ú±o°Ñ¼Æ·s¼W¨ìDB
+			//ï¿½Nï¿½ï¿½ï¿½oï¿½Ñ¼Æ·sï¿½Wï¿½ï¿½DB
 			String sql ="INSERT INTO user(name, account, password) VALUES(?,?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, name);
@@ -107,12 +107,12 @@ public class T1_formBody extends HttpServlet {
 			int count = preparedStatement.executeUpdate();
 			if(count == 1) {
 			
-//				//1.¶Çµ¹Clientªº¸ê®Æµ²ºc¬° =>{"msg":["OK"]}
+//				//1.ï¿½Çµï¿½Clientï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½cï¿½ï¿½ =>{"msg":["OK"]}
 //				JSONObject jsonObject = new JSONObject();
 //				jsonObject.append("msg", "OK");
 //				printWriter.append(jsonObject.toString());
 //				
-//				//2..¶Çµ¹Clientªº¸ê®Æµ²ºc¬° =>{"msg:OK"}
+//				//2..ï¿½Çµï¿½Clientï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½cï¿½ï¿½ =>{"msg:OK"}
 //				Gson gson = new Gson();
 //				Map<String, String> map = new HashMap();
 //				map.put("msg", "ok");
@@ -121,22 +121,22 @@ public class T1_formBody extends HttpServlet {
 //				printWriter.write(jsonMsg);
 				
 				
-				//3.¦Û¤v¼gªºAPI±Nresponseªºmsg¥ÎJson®æ¦¡°e¥X
+				//3.ï¿½Û¤vï¿½gï¿½ï¿½APIï¿½Nresponseï¿½ï¿½msgï¿½ï¿½Jsonï¿½æ¦¡ï¿½eï¿½X
 //				Map<String, String> map = new HashMap();
 //				map.put("msg", "ok");
 //				ResultWriter.write(response, map);
 				
-				//4.¦Û¤v¼gªºª½±µ¶Ç°e{"msg":"OK"}¤èªk
+				//4.ï¿½Û¤vï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°e{"msg":"OK"}ï¿½ï¿½k
 //				ResultWriter.writeOk(response);
 				
-				//5.¶Ç°etokenµ¹ClentºÝ
+				//5.ï¿½Ç°etokenï¿½ï¿½Clentï¿½ï¿½
 				Map<String, String> map = new HashMap<>();
 				map.put("token", JwtUtils.createToken(name, account));
 				ResultWriter.write(response, map);
 				
 			}
-			printWriter.flush();//­«­n¤£µM·|º|°T®§
-			System.out.println("DB insert¦¨¥\:" + count +"µ§");
+			printWriter.flush();//ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½Mï¿½|ï¿½|ï¿½Tï¿½ï¿½
+//			System.out.println("DB insertï¿½ï¿½ï¿½\:" + count +"ï¿½ï¿½");
 			
 		}catch (Exception e) {
 			System.out.println(e.toString());
