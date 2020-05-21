@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.http.HttpServletResponse;
+
 import beans.GoogleSiginAccoutBean;
 import beans.UserBean;
 
@@ -16,6 +18,11 @@ public class DB {
 	private final static String URL ="jdbc:mysql://localhost:3307/" + DB_NAME + SERVER_TIMEZONE;
 	private Connection con;
 	
+	HttpServletResponse response;
+	
+	public DB(HttpServletResponse response) {
+		this.response = response;
+	}
 	
 	
 	public void doConnect() {
@@ -57,6 +64,7 @@ public class DB {
 			int i = pstmt.executeUpdate();
 			if( i != 0) {
 				System.out.println("addUser()=>" + user.toString());
+				ResultWriter.writeCode(response);
 				doClose();
 			}
 			
@@ -94,6 +102,7 @@ public class DB {
 			int i = pstmt.executeUpdate();
 			if(i != 0) {
 				System.out.println("addGoogleSiginAccount()成功新增:" + i +"資料");
+				ResultWriter.writeCode(response);
 				doClose();
 			}
 

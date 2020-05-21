@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class WordUtils {
 	
-	/*±NexcelWordªº®æ¦¡Âà¦¨javWrod®æ¦¡
-	 * @param:String word =>­n³QÂà«¬javaWordªº¦r¦êexcel®æ¦¡
+	/*å°‡excelWordçš„æ ¼å¼è½‰ä¹˜javaWord
+	 * @param:String word =>è¦è¢«è½‰æˆjavaWordçš„excelå­—ä¸²
 	 */
 	public static String excelWordToJavaWord(String word) {
 		StringBuilder sb = new StringBuilder();
@@ -43,12 +43,12 @@ public class WordUtils {
 			String a3 = splitWord[3];
 			
 			if(secondWord.contains("1,2,3,4,5,6,7,8,9,0")) {
-				sb.append(a0 +secondWord +"." +a1 +"=>" + a2 + "(¦^¶Ç­È:" + a3 +")");
+				sb.append(a0 +secondWord +"." +a1 +"=>" + a2 + "(ï¿½^ï¿½Ç­ï¿½:" + a3 +")");
 				System.out.println(sb);
 				System.out.println("=====================");
 				
 			}else {
-				sb.append(a0+"." +a1 +"=>" + a2 + "(¦^¶Ç­È:" + a3 +")");
+				sb.append(a0+"." +a1 +"=>" + a2 + "(ï¿½^ï¿½Ç­ï¿½:" + a3 +")");
 				System.out.println(sb);
 				System.out.println("=====================");
 			}
@@ -60,8 +60,8 @@ public class WordUtils {
 	
 	}
 	
-	/*±N¦h­ÓexcelWordªº®æ¦¡Âà¦¨javWrod®æ¦¡
-	 * @param : string..  => ­n§ï®æ¦¡ªºword
+	/*ä¸€æ¬¡å°‡å¤šå€‹excelWordçš„æ ¼å¼è½‰ä¹˜javaWord
+	 * @param : string..  => å¤šå€‹è¦è¢«è½‰æˆjavaWordçš„excelå­—ä¸²
 	 */
 	public static ArrayList<String> excelWordToJavaWords(String word0, String word1 , String word2, String word3, String word4, String word5, String word6, String word7) {
 		
@@ -96,7 +96,7 @@ public class WordUtils {
 			String answerWord = null;
 				
 			if(!word.isEmpty() && word != null) {
-			System.out.println("¦³¥]§t");
+			System.out.println("ï¿½ï¿½ï¿½]ï¿½t");
 			int intX = Integer.parseInt(startIndex);
 			int intY = Integer.parseInt(endIndex);
 
@@ -109,7 +109,7 @@ public class WordUtils {
 			System.out.println(repalceWrod);
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append("(¦^¶Ç­È:" + newBlankWord +")");
+			sb.append("(ï¿½^ï¿½Ç­ï¿½:" + newBlankWord +")");
 			String keyWord = repalceWrod.concat(sb.toString());
 			System.out.println(keyWord);
 			
@@ -132,7 +132,7 @@ public class WordUtils {
 				
 				String s0 = endWord[0]; //9
 				String s2 = endWord[2]; //inflate(LayoutInflater inflater, int layoutId, ViewGroup parent, boolean attachToParent)
-				String s3 = endWord[3];	//fragment¸j©wLayout(1.¸j©wªºLayout,2.­n¸j©wªºLayoutId 3.¤÷Ãş§OªºViewGroup 4.¬O§_ª½±µ±Nlayoutªº¤¸¥ó¥[¤J¨ì¤÷Ãş§Oµe­±)(¦^¶Ç­È:static <T extends ViewDataBinding> T)
+				String s3 = endWord[3];	//fragmentï¿½jï¿½wLayout(1.ï¿½jï¿½wï¿½ï¿½Layout,2.ï¿½nï¿½jï¿½wï¿½ï¿½LayoutId 3.ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ViewGroup 4.ï¿½Oï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Nlayoutï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½eï¿½ï¿½)(ï¿½^ï¿½Ç­ï¿½:static <T extends ViewDataBinding> T)
 				StringBuilder sb2 = new StringBuilder();
 				System.out.println(s3);
 				sb2.append(fistWord +"." + s2 +"<br>" +s3);

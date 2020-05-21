@@ -11,9 +11,11 @@ public  class RequestUtils {
 	
 	
 	
-	/*1.¨ú±o©Ò¦³ºô­¶¿é¤Jªº°Ñ¼Æ
-	 * @param : HttpServletRequest request => ¨Ï¥ÎªÌ¶Ç¨Óªºrequest
-	 * ¦^¶Ç [{key:value}] //[{"startIndex":"1","endIndex":"11",}]
+
+	
+	/*1.å–å¾—æ‰€æœ‰çš„åƒæ•¸
+	 * @param:HttpServletRequest request => ä½¿ç”¨è€…çš„å‚³ä¾†çš„requset
+	 * [{key:value}] //[{"startIndex":"1","endIndex":"11",}]
 	 * */
 	public static ArrayList<Map<String, String>> getParameterListMap(HttpServletRequest request){
 		Map<String,String> wordsMap = new HashMap();
