@@ -3,11 +3,16 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import beans.GoogleSiginAccoutBean;
 import beans.UserBean;
+import mail.MailUtils;
 
 public class DB {
 	private final static String USER ="root";
@@ -44,35 +49,50 @@ public class DB {
 		}
 	}
 	
-	public void addUser(UserBean user) {
+	//A.會員註冊
+	public String addUser(UserBean user) {
 		String sql ="INSERT INTO user(name,account,password,hash,active)VALUES(?,?,?,?,?)";
 		doConnect();
-		
+		String registerMsg = "";
 		try {
 		
 			String name = user.getName();
 			String account = user.getAccount();
 			String password = user.getPassword();
 			
+			//產生專屬使用的hashCode
+			String hash;
+			Random random = new Random();
+			random.nextInt(999999);
+			System.out.println(random.toString());
+			hash = DigestUtils.md5Hex("" + random);
+			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user.getName());
 			pstmt.setString(2, user.getAccount());
 			pstmt.setString(3, user.getPassword());
-			pstmt.setString(4, "");
+			pstmt.setString(4, hash);
 			pstmt.setInt(5, user.getActive());
 			
 			int i = pstmt.executeUpdate();
 			if( i != 0) {
-				System.out.println("addUser()=>" + user.toString());
+				System.out.println("addUser()成功:=>" + user.toString());
 				ResultWriter.writeCode(response);
-				doClose();
+				ResultWriter.writeOk(response);
+				MailUtils.getInstance().sendRegisterEmail(account, hash);
+				registerMsg = "success";
 			}
-			
+			doClose();
+
 
 		}catch (Exception e) {
+			
 			System.out.println("addUser()失敗:" + e.toString());
 
 		}
+		
+		return "success";
+
 	}
 	
 	public void addGoogleSiginAccount(GoogleSiginAccoutBean googleSiginAccoutBean) {
@@ -112,7 +132,34 @@ public class DB {
 
 	}
 	
-	
+	//C.查詢是否激活,激活active,改成active改成0
+	public int changeActive(String account, String hash)  {
+		System.out.println("changeActive()");
+		int i =0;
+		doConnect();
+		
+		//查詢指定欄位 account,hash,active => 指定你?代的要查詢的帳號跟hash
+		String sql ="SELECT account,hash,active FROM user WHERE account = ? AND hash = ? AND active = '0' ";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, account);
+			pstmt.setString(2, hash);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+//				String newAccount = rs.getString("account");
+//				String newhash = rs.getString("hash");
+//				String newactive = rs.getString("active");
+//				System.out.println("account:" + newAccount +"/hash:" + newhash +"active:" +newactive);
+				
+			}
+		}catch (Exception e) {
+			System.out.println("changeActive():" + e.toString());
+		}
+		
+		
+		return i;
+	}
 	
 	
 	

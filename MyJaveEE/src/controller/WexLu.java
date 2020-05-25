@@ -23,6 +23,7 @@ import beans.UserBean;
 import model.CheckUtils;
 import model.DB;
 import model.GsonUtils;
+import model.JwtUtils;
 import model.ResultWriter;
 import model.WordUtils;
 
@@ -47,60 +48,78 @@ public class WexLu extends HttpServlet {
 		BufferedReader bufferedReader = request.getReader();
 		String json = bufferedReader.readLine();
 		bufferedReader.close();
-		System.out.println(json);
+		System.out.println("Json參數串流:" +json);
 		
-		
-//		//A.用Gson方式輸入Json物件,取得節點的資料 {"account":"cf","active":"0","name":" cg","password":"ff"}
-//		JsonParser jsonParser = new JsonParser();//取得json解析器物件
-//		JsonElement jsonElement = jsonParser.parse(json); //取得JsonElement物件實體
-//		System.out.println(jsonElement);//{"account":"h","active":"0","name":"g","password":"b"}
-//		
-//		JsonObject jsonObject  = jsonElement.getAsJsonObject(); //取得JsonObject()實體
-//		JsonElement accoubtElement = jsonObject.get("account"); //取得指定節點的資料(要查詢的節點字串)回傳到JsonElement
-//		System.out.println(accoubtElement.toString()); //h
-//		
-	
-		
-		try {
-			
-			//2.取得client端傳來的指定參數,回傳Strng
-			String account = GsonUtils.getParamString(json, "account");
-			String password = GsonUtils.getParamString(json, "password");
-			String name = GsonUtils.getParamString(json, "name");
-			
-			
-			System.out.println(account);
-			System.out.println(name);
-			System.out.println(password);
-			
-			//名稱沒輸入
-			if(!CheckUtils.isInput(name)) {	ResultWriter.writeMsg(response, "姓名沒輸入");}
-			if(!CheckUtils.isInput(account)) {	ResultWriter.writeMsg(response, "帳號沒輸入");}
-			if(!CheckUtils.isInput(password)) {	ResultWriter.writeMsg(response, "密碼沒輸入");}
-			
-			if(!CheckUtils.isEmail(account)) {ResultWriter.writeMsg(response, "email格式錯誤");}
-			
-			ResultWriter.writeMsg(response, "使用者有輸入");
-			
-			
-//			UserBean userBean = GsonUtils.jsonStringToBean(json, UserBean.class);
-//			DB db = new DB(response);
-//			db.addUser(userBean);
-			
-			
-			
-			
-		}catch (Exception e) {
-			System.out.println("帳密失敗:" + e.toString());
-		}
-		
-		
+		String page = request.getParameter("page");
+		System.out.println("page:" +page);
+		String action = GsonUtils.getParamString(json, "action");
+		System.out.println("action:" +action);
 
 		
+		//**如果client端的action參數沒有為空而且有串流進來
+		if(action != null && json != null) {
+			
+			//A.如果使用者呼叫註冊API
+			if(action.equals("register")) {
+				try {
+					
+					//1.取得client端傳來的指定參數
+							String account = GsonUtils.getParamString(json, "account");
+							String password = GsonUtils.getParamString(json, "password");
+							String name = GsonUtils.getParamString(json, "name");
+							
+					//2.檢驗帳號,密碼,信箱
+							if(!CheckUtils.isInput(name)) {	ResultWriter.writeMsg(response, "姓名沒輸入"); }
+							else if(!CheckUtils.isInput(account)) {	ResultWriter.writeMsg(response, "帳號沒輸入");}
+							else if(!CheckUtils.isInput(password)) {	ResultWriter.writeMsg(response, "密碼沒輸入");}
+							else if(!CheckUtils.isEmail(account)) {	ResultWriter.writeMsg(response, "email格式錯誤");}
+//							else if(password.length() >12 || password.length() <5) {ResultWriter.writeMsg(response, "密碼必須大於4且小於12瑪");}
+							
+					//3.如果檢驗都成功的話,讓他註冊,並且寄激活信		
+							else {
+								UserBean userBean = GsonUtils.jsonStringToBean(json, UserBean.class);
+								DB db = new DB(response);
+								String registerMsg = db.addUser(userBean);
+								
+								//如果使用者註冊成功,取得成功訊息
+								if(registerMsg.equals("success")) {
+									System.out.println("註冊成功!");
+								}	
+								
+							}
+		
+				}catch (Exception e) {
+					System.out.println("register失敗:" + e.toString());
+				}
+						
+			}
+		
+		} 
+		
+		//EX.如果page有得到
+		if(page != null) { 
+			 //如果使用者激活了信件的話,收到userEmail,hashCode,page三個參數
+			if(page.equals("mymail")) {
+				
+				
+				String userEmail = request.getParameter("key1");
+				String hasCode = request.getParameter("key2");
+				
+				try {
+				 String token =	JwtUtils.createToken(userEmail, hasCode);
+				 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				System.out.println("email:激活成功");
+			}
 		}
 		
-		
-		
 	}
+		
+		
+		
+}
 
 

@@ -53,19 +53,20 @@ public class JobDB {
 	}
 	
 	
-	/*1.�憓xcelWord瑼���DB
-	 * @pamram:String fileName => 1.閬��DB��sv瑼��蔭
-	 * @param:Object object => 2.��ervlet��bjext,銝餉�閬getClass�瘜�
+	/*1.
+	 * @pamram:String fileName => 1.
+	 * @param:Object object => 2.
 	 * */
 	public  void addExcleWord(String fileName, Object object) throws ServletException, IOException {
 			addExcleWord(DEFAULT_TABLE_NAME, fileName, object);
 			
 	}
 	
-	/*2.�憓xcleWord瑼���DB,�隞交��澈���
-	 * @param:String tableName	=> 1.閬◤���DB��”
-	 * @param:String fileName => 2.閬��DB��sv瑼��蔭
-	 * @param:Object object => 3.��ervlet��bjext,銝餉�閬getClass�瘜� */
+	/*2.
+	 * @param:String tableName	=> 1.
+	 * @param:String fileName => 2.
+	 * @param:Object object => 3.
+	 */
 	public  void addExcleWord(String tableName, String fileName, Object object) throws ServletException, IOException {
 		try {
 			 String[] splitLine;
@@ -78,11 +79,11 @@ public class JobDB {
 		    		  getClassLoader().
 		    		 	getResource(fileName);
 		     
-		     String path = url.getPath(); //������
+		     String path = url.getPath(); //
 		     System.out.println(path);
-		     InputStream in = new FileInputStream(path); //���撓�瑼��葡瘚�(閬撓������)
+		     InputStream in = new FileInputStream(path); //)
 		     
-		     //霈�����葡瘚�
+		     //
 		     BufferedReader boBufferedReader = new BufferedReader(new InputStreamReader(in));
 		     String line = null;
 		     
@@ -110,7 +111,7 @@ public class JobDB {
 							    String row6 = splitLine[6];
 							    String row7 = splitLine[7];
 							    
-							    //憒�洵鈭��葡��.
+							    //
 							    if(methond.contains(".")) {
 							    	row2 = row2.replace(".",",");
 					    	 		System.out.println("new row2:" + row2);
@@ -134,7 +135,7 @@ public class JobDB {
 							    int count = pstmt.executeUpdate();
 							    
 							    if(count != 0) {
-							    	System.out.println("������:" + count +"蝑�");
+							    	System.out.println("" + count +"");
 							    }
 							   
 							    
@@ -147,7 +148,7 @@ public class JobDB {
 		   
 		   
 		}catch (Exception e) {
-			System.out.println( "�隤�"+e.toString());
+			System.out.println( ""+e.toString());
 			
 		}
 	}

@@ -24,26 +24,37 @@ public class CheckUtils {
 	}
 	
 	
-	/*判斷使用者字串是否有輸入
-	 * @param String inpuTex => 要檢查是否有輸入的字串
-	 * return => true有輸入,false沒輸入
+	/*判斷多個字串是否有輸入,且不為空
+	 * @parma String[] str => 要判斷是否有輸入的字串陣列
 	 * */
-	public static boolean isInput(String inpuText) {
+	public static boolean isInput(String ... str) {
+		boolean isInput = false;
 		
-		boolean isInput = true;
-		
-		if(inpuText != null) {
-			
-			if(inpuText == null) isInput = false;
-			if(inpuText.equals("")) isInput =false;
-			
-		}else {
-			isInput = false;
+		for(int i=0; i< str.length; i++) {
+			isInput = isOk(str[i]);
+			if(isInput == false) {
+				break;
+			}else {
+				isInput = true;
+			}
 		}
-	
 		
 		return isInput;
 	}
 	
+
+	/*判斷單一字串是否有輸入且不為null
+	 * @parma String msg => 要判斷是否有輸入的字串
+	 * */
+	public static boolean isOk(String msg) {
+		boolean isOK = true;
+		if(msg == null || msg.isEmpty()) {
+			isOK = false;
+			System.out.println("空");
+		}else {
+			System.out.println("有");
+		}
+		return isOK;
+	}
 	
 }

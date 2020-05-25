@@ -82,7 +82,7 @@ public class ResultWriter {
 	 * @param HttpServletResponse response => 1.Servlet的Response
 	 * */
 	public static void writeOk(HttpServletResponse response) throws Exception {
-		map.put("msg", "OK");
+		map.put("message", "OK");
 		write(response, map,defalutContentType);
 	}
 	

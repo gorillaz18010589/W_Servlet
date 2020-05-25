@@ -34,14 +34,16 @@ public class GsonUtils   {
     
     //3.輸入指定的字串節點取得該節點的資料
     public static String getParamString(String json, String param) {
+    	String value = null;
     	
-    	JsonParser jsonParser = new JsonParser();
-    	JsonElement jsonElement = jsonParser.parse(json);
-    	JsonObject jsonObject = jsonElement.getAsJsonObject();
-    	JsonElement valueElement = jsonObject.get(param);
-    	String hso = valueElement.getAsString();
-    	
-    	return hso;
+    	if(json != null && param != null) {
+    		JsonParser jsonParser = new JsonParser();
+        	JsonElement jsonElement = jsonParser.parse(json);
+        	JsonObject jsonObject = jsonElement.getAsJsonObject();
+        	JsonElement valueElement = jsonObject.get(param);
+        	value = valueElement.getAsString();
+    	}
+    	return value;
     	
     }
 

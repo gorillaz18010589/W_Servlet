@@ -19,8 +19,9 @@ public class JwtUtils {
 	private static String SUB ="userId";
 	private static String AUD ="user";
 
-	/*1.¸ÑªRJWTªº¦r¦êToken,Åã¥ÜClaim©Ò¦³ªºkey:value°T®§¦bLOG¤W
-	 * @param String jwt =>­n³Q¸ÑªRªºJWT token
+	/*1.è§£ætokenå–å¾—è³‡è¨Šçš„nameè·Ÿvalue
+	 * @param String jwt =>è¦è§£æçš„token
+	 * return => å›å‚³tokenå–å¾—è³‡è¨Šçš„nameè·Ÿvalue
 	 */
 	public static void parseJWTshowClaimMsg(String jwt) {
 		Map<String, Claim> claimsMap = JWT.decode(jwt).getClaims();
@@ -34,11 +35,12 @@ public class JwtUtils {
 		}
 	}
 	
-	/*2.³Ğ³y¤@­Ó¨Ï¥ÎªÌToken
-	 * @param String userAccout => ¨Ï¥ÎªÌ¶Ç¨Óªº±b¸¹,·í§@playloadªºkey
-	 * @param String uerName=> ¨Ï¥ÎªÌ¶Ç¨Óªº¦W¦r,·í§@playloadªºvalue
+	/*2.å‰µé€ JWT_Token
+	 * @param String userAccout => 1.ä½¿ç”¨è€…å¸³è™Ÿç•¶ä¸»key
+	 * @param String uerName=> 2.ä½¿ç”¨è€…HashCode
+	 * retun => å›å‚³ç”¨Clientå¸³è™Ÿè·ŸhashCodeç”¢ç”Ÿçš„Token
 	 * */
-	public static String createToken(String userAccount ,String userName) throws Exception  {
+	public static String createToken(String userAccount ,String hashCode) throws Exception  {
 		
 		Algorithm alg = Algorithm.HMAC256("key");
 		Date date = new Date();
@@ -48,7 +50,7 @@ public class JwtUtils {
 			.withIssuedAt(date)
 			.withSubject(SUB)
 			.withAudience(AUD)
-			.withClaim(userAccount, userName)
+			.withClaim(userAccount,hashCode)
 			.sign(alg);
 		
 		return token;
