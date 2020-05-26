@@ -2,6 +2,7 @@ package controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +57,8 @@ public class WexLu extends HttpServlet {
 		System.out.println("action:" +action);
 
 		
+	
+		
 		//**如果client端的action參數沒有為空而且有串流進來
 		if(action != null && json != null) {
 			
@@ -104,9 +107,38 @@ public class WexLu extends HttpServlet {
 				
 				String userEmail = request.getParameter("key1");
 				String hasCode = request.getParameter("key2");
+			
+				
 				
 				try {
-				 String token =	JwtUtils.createToken(userEmail, hasCode);
+				 DB db = new DB(response);
+				 int i = db.changeActive(userEmail, hasCode);
+				 if(i == 1) {
+					 
+					 response.setContentType("text/html; charset=UTF-8"); 
+					 response.setCharacterEncoding("UTF-8");
+					 PrintWriter printWriter = response.getWriter();
+					 
+					 String token =	JwtUtils.createToken(userEmail, hasCode);
+					 
+					 printWriter.write("<html>");
+					 printWriter.write("<a href=\"app://點選激活開啟APP\"/> deep link  </a>");
+					 printWriter.write("</html>");
+
+					 
+					 
+					 
+//					 Map<String, String> map = new HashMap<>();
+//					 map.put("token", token);
+//					 ResultWriter.write(response, map);
+//					 db.addToken(userEmail, hasCode, token);
+					 
+					 
+					 
+					 System.out.println("激活成功新增token:" + token);
+				 }else {
+					 
+				 }
 				 
 				} catch (Exception e) {
 					e.printStackTrace();

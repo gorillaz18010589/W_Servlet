@@ -32,8 +32,8 @@ public class TextMail extends HttpServlet {
 
 		String host = "smtp.gmail.com";  //設置mail主機為gmail
 		String port ="587"; //接收port 587
-		String email ="gorillaz1801058@gmail.com"; //寄件人信箱
-		String password ="049310528"; //寄件人密碼
+		String email =""; //寄件人信箱
+		String password =""; //寄件人密碼
 		
 		
 		//1.準備props,帶一些mail需要共享的參數,設定mail主機,auth,port等

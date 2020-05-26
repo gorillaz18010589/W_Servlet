@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
@@ -134,35 +135,51 @@ public class DB {
 	
 	//C.查詢是否激活,激活active,改成active改成0
 	public int changeActive(String account, String hash)  {
-		System.out.println("changeActive()");
-		int i =0;
-		doConnect();
 		
-		//查詢指定欄位 account,hash,active => 指定你?代的要查詢的帳號跟hash
-		String sql ="SELECT account,hash,active FROM user WHERE account = ? AND hash = ? AND active = '0' ";
+			int i = 0;
+			doConnect();
+			String sql ="SELECT account,hash,active FROM user WHERE account = ? AND hash = ? AND active ='0'";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, account);
 			pstmt.setString(2, hash);
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-//				String newAccount = rs.getString("account");
-//				String newhash = rs.getString("hash");
-//				String newactive = rs.getString("active");
-//				System.out.println("account:" + newAccount +"/hash:" + newhash +"active:" +newactive);
+				if(rs.next()) {
+					//2.把激活狀態更改,activie改為1,email跟hash瑪也更新
+					String sql1="UPDATE user SET active='1' where account = ? AND hash = ?";
+					PreparedStatement pstmt1 = con.prepareStatement(sql1);
+					pstmt1.setString(1, account);
+					pstmt1.setString(2, hash);
+					System.out.println("changeActive成功():激活狀態");
+					 i = pstmt1.executeUpdate();		
+				}else 
+				{
+					System.out.println("changeActive()失敗");
+				}		
 				
-			}
 		}catch (Exception e) {
-			System.out.println("changeActive():" + e.toString());
-		}
-		
-		
+				System.out.println("changeActive()錯誤:" + e.toString());
+			}
 		return i;
+			
 	}
 	
-	
-	
-	
+	//insert token 進入user
+	public void addToken (String account, String hash, String token) {
+		doConnect();
+		String querySql = "INSERT INTO user (account,hash,token) SELECT account,hash,token FROM user";
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(querySql);
+			pstmt.setString(1, account);
+			pstmt.setString(2, hash);
+		    pstmt.setString(3, token);
+			int i = pstmt.executeUpdate();
+			System.out.println("addToken()成功:" + token);
+
+		} catch (SQLException e) {
+			System.out.println("addToken()失敗:" + e.toString());
+
+		}
+	}
 	
 }
