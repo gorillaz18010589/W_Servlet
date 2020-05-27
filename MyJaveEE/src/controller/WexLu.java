@@ -122,7 +122,7 @@ public class WexLu extends HttpServlet {
 					 String token =	JwtUtils.createToken(userEmail, hasCode);
 					 
 					 printWriter.write("<html>");
-					 printWriter.write("<a href=\"app://點選激活開啟APP\"/> deep link  </a>");
+					 printWriter.write("<a href=\"app://點選激活開啟APP!!\"/> deep link  </a>");
 					 printWriter.write("</html>");
 
 					 
